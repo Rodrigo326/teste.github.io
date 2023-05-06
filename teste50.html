@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+        }
+
+        .image-container {
+            position: relative;
+            text-align: center;
+        }
+
+        .image-container img {
+            width: 400px;
+            height: 400px;
+            cursor: none;
+        }
+
+        .custom-cursor {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            width: 350px;
+            height: 300px;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            background-image: url('f.png');
+            background-size: cover;
+        }
+
+        .overlay-text {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Comic Sans MS', cursive;
+            font-size: 24px;
+            transition: font-size 0.3s;
+        }
+
+        .rainbow-text {
+            background: -webkit-linear-gradient(45deg, #f36a6a, #f3da6a, #acf36a, #6af3c8, #6a88f3, #c86af3, #f36aa6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+    <link rel="icon" type="image/png" href="1.png">
+    <title>Brownies Gostosos</title>
+</head>
+<body>
+    <h1 class="overlay-text">Ajude o Felipe a comer o brownie!</h1>
+
+    <div class="image-container">
+        <img id="image" src="1.png" alt="Imagem 1">
+    </div>
+
+    <script>
+        var cursor = document.createElement("div");
+        cursor.className = "custom-cursor";
+        document.body.appendChild(cursor);
+
+        var image = document.getElementById("image");
+        var imageList = ["1.png", "2.png", "3.png", "4.png", "5.png", "7.png"];
+        var imageIndex = 0;
+
+        document.addEventListener("mousemove", function(event) {
+            cursor.style.top = event.clientY + "px";
+            cursor.style.left = event.clientX + "px";
+            image.style.top = event.clientY + "px";
+            image.style.left = event.clientX + "px";
+        });
+
+        image.addEventListener("click", function() {
+            imageIndex++;
+            if (imageIndex >= imageList.length) {
+                imageIndex = 0;
+            }
+            if (imageIndex === 5) {
+                var h1 = document.querySelector('.overlay-text');
+                h1.innerHTML = "PARABÉNS!!!";
+                h1.classList.add('rainbow-text');
+                h1.style.fontSize = parseInt(window.getComputedStyle(h1).fontSize) + 10 + 'px';
+            } else {
+                var h1 = document.querySelector('.overlay-text');
+                h1.innerHTML = "Ajude o Felipe a comer o brownie!";
+                h1.classList.remove('rainbow-text');
+                h1.style.fontSize = '24px';
+            }
+            image.src = imageList[imageIndex];
+        });
+    </script>
+</body>
+</html>
